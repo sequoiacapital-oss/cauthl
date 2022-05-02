@@ -49,7 +49,7 @@ module Cauthl
             @okta_client ||= Cauthl::OktaToken.new(
                 client_id: @client_id,
                 client_secret: @client_secret,
-                token_credentials_uri: @token_uri,
+                token_credentials_uri: @token_url,
                 scopes: @scopes
             )
             
