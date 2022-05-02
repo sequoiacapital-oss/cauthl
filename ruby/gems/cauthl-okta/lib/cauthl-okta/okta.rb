@@ -25,9 +25,9 @@ module Cauthl
           @client.refresh!
         elsif Time.now > @client.expires_at + 120
           @client.refresh!
-        else
-          @client.access_token
         end
+
+          @client.access_token
       end
     end
   end
