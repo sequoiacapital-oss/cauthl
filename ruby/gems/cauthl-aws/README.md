@@ -15,20 +15,26 @@ Create an okta OIDC application that uses the client_credentials flow. You will 
 
 You will also need an authorization server that defines at least a single custom scope.
 
-Initalize the credentials:
-
+Create a token generator. One for Okta is available:
 ```
-      AssumeRoleOIDCClientCredentials.new(
-        role_arn: 'arn',
-        client_id: YOUR_CLIENT_ID,
-        client_secret: YOUR_CLIENT_SECRET,
-        token_url: YOUR_AUTHORIZATION_SERVER_TOKEN_URL,
-        scopes: YOUR_OIDC_SCOPES,
-        role_session_name: "session-name"
-      )
+require 'cauthl-okta'
+
+idp = Cauthl::Okta::TokenGenerator.new(
+  client_id: OKTA_CLIENT_ID,
+  client_secret: OKTA_CLIENT_SECRET,
+  token_credentials_uri: OKTA_TOKEN_URL,
+  scopes: []
+  )
+```
+
+Then, initalize the credentials:
+```
+  AssumeRoleOIDCClientCredentials.new(
+    idp: idp
+    role_arn: 'arn',
+    role_session_name: "session-name"
+  )
 ```
 
 Upon credential refresh time, this will make the external call to the OIDC token provider and get the JWT needed for the
 traditional AssumeRoleWithWebIdentity call. Then it does that call and populates the credentials.
-
-Any error in the JWT refresh process raises the exception AssumeRoleOIDCClientCredentials::TokenRetrievalError.
