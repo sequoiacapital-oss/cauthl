@@ -21,8 +21,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "cauthl-okta"
-  spec.add_dependency "json"
-  spec.add_dependency "rest-client"
   spec.add_dependency "aws-sdk-core", "~> 3.0"
 
   spec.add_development_dependency "bundler", "~> 2.1"

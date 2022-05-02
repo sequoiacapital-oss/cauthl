@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'base64'
-require 'rest_client'
+require 'cauthl-okta'
 require 'aws-sdk-core'
 
 # See the README
@@ -47,21 +46,14 @@ module Cauthl
         end
 
         def _get_token
-            #RestClient.log = STDOUT
-            begin
-                resp = RestClient.post(@token_url, 
-                    { grant_type: "client_credentials", scope: @scopes ? URI.encode_www_form(@scopes) : nil, },
-                    { accept: :json, "cache-control": "no-cache", "Authorization": "Basic " + Base64.strict_encode64(@client_id.to_s + ":" + @client_secret.to_s) }
-                )
-
-                if resp.code != 200
-                    raise TokenRetrievalError.new
-                end
-
-                return JSON.parse(resp.body)["access_token"]
-            rescue RestClient::Unauthorized, RestClient::BadRequest, JSON::ParserError
-                raise TokenRetrievalError.new
-            end
+            @okta_client ||= Cauthl::OktaToken.new(
+                client_id: @client_id,
+                client_secret: @client_secret,
+                token_credentials_uri: @token_uri,
+                scopes: @scopes
+            )
+            
+            @okta_client.access_token
         end
 
         end
