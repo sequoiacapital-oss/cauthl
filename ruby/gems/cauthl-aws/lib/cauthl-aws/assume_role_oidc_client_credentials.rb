@@ -23,7 +23,7 @@ require 'aws-sdk-core'
 # constructed.
 module Cauthl
     module Aws
-        class AssumeRoleOIDCClientCredentials < Aws::AssumeRoleWebIdentityCredentials
+        class AssumeRoleOIDCClientCredentials < ::Aws::AssumeRoleWebIdentityCredentials
 
         class TokenRetrievalError < RuntimeError; end
 
