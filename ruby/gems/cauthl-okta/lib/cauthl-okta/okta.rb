@@ -1,27 +1,33 @@
 require 'signet/oauth_2/client'
 
 module Cauthl
-  class OktaToken
+  module Okta
+    class TokenGenerator
 
-    attr_reader :client
+      attr_reader :client
 
-    def initialize(client_id:, client_secret:, token_credentials_uri:, scopes: [])
-      @client = Signet::OAuth2::Client.new(
-        :token_credential_uri => token_credentials_uri,
-        :client_id => client_id,
-        :client_secret => client_secret,
-        :scopes => scopes
-      )
+      def initialize(client_id:, client_secret:, token_credentials_uri:, scopes: [])
 
-      @client.grant_type = "client_credentials"
-      @client.refresh!
-    end
+        @client = Signet::OAuth2::Client.new(
+          :token_credential_uri => token_credentials_uri,
+          :client_id => client_id,
+          :client_secret => client_secret,
+          :scopes => scopes
+        )
+        @client.grant_type = "client_credentials"
+        
+        @first_time = true
+      end
 
-    def access_token
-      if Time.now > @client.expires_at + 120
-        @client.refresh!
-      else
-        @client.access_token
+      def access_token
+        if @first_time
+          @first_time = false
+          @client.refresh!
+        elsif Time.now > @client.expires_at + 120
+          @client.refresh!
+        else
+          @client.access_token
+        end
       end
     end
   end

@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem 'google-apis-calendar_v3'
+
 gemspec
 
 group :test do

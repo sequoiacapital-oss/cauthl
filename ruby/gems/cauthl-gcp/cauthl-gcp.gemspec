@@ -20,7 +20,8 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['lib/**/*.rb']
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "aws-sdk-core", "~> 3.0"
+  spec.add_dependency "google-apis-sts_v1", "~> 0.18"
+  spec.add_dependency "google-apis-iamcredentials_v1", "~> 0.10"
 
   spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "rake", "~> 10.0"
