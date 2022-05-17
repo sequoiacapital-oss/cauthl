@@ -29,7 +29,7 @@ idp = Cauthl::Okta::TokenGenerator.new(
 
 Then, initalize the credentials:
 ```
-  AssumeRoleOIDCClientCredentials.new(
+  creds = AssumeRoleOIDCClientCredentials.new(
     idp: idp
     role_arn: 'arn',
     role_session_name: "session-name"
@@ -38,3 +38,9 @@ Then, initalize the credentials:
 
 Upon credential refresh time, this will make the external call to the OIDC token provider and get the JWT needed for the
 traditional AssumeRoleWithWebIdentity call. Then it does that call and populates the credentials.
+
+You can also use the builtin Aws.config construct to set these as that global credentials for your entire application:
+
+```
+  Aws.config.update(region: ENV['AWS_REGION'], credentials: creds)
+```
