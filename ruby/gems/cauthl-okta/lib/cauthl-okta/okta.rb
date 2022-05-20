@@ -6,13 +6,15 @@ module Cauthl
 
       attr_reader :client
 
-      def initialize(client_id:, client_secret:, token_credentials_uri:, scopes: [])
+      FUZZY_REFRESH_SECONDS = 120
+
+      def initialize(client_id:, client_secret:, token_credentials_uri:, scope: nil)
+        @scope = scope
 
         @client = Signet::OAuth2::Client.new(
           :token_credential_uri => token_credentials_uri,
           :client_id => client_id,
-          :client_secret => client_secret,
-          :scopes => scopes
+          :client_secret => client_secret
         )
         @client.grant_type = "client_credentials"
         
@@ -22,9 +24,9 @@ module Cauthl
       def access_token
         if @first_time
           @first_time = false
-          @client.refresh!
-        elsif Time.now > @client.expires_at + 120
-          @client.refresh!
+          @client.fetch_access_token!(scope: @scope)
+        elsif Time.now > @client.expires_at + FUZZY_REFRESH_SECONDS
+          @client.fetch_access_token!(scope: @scope)
         end
 
           @client.access_token
