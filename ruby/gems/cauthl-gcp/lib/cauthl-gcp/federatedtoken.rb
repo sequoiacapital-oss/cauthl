@@ -1,4 +1,3 @@
-require 'cauthl-okta'
 require 'google-apis-iamcredentials_v1'
 
 module Cauthl

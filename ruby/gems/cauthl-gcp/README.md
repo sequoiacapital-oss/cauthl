@@ -7,16 +7,17 @@ This library is a set of wrappers to help facilitate that. You will first need t
 pool in your GCP environment. You will also need a service account that has been properly permissioned to allow
 the use of that workload identity pool.
 
-First, much like the AWS provider, we need to create an access token generator tied to our IDP (Okta for example)
+First, much like the AWS provider, we need to create an access token generator tied to our IDP. You can use
+the reference example or build your own.
 
 ```
-require 'cauthl-okta'
+require 'cauthl'
 
-idp = Cauthl::Okta::TokenGenerator.new(
+tg = Cauthl::TokenGenerator.new(
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
   token_credentials_uri: OKTA_TOKEN_URL,
-  scopes: []
+  scope: []
   )
 ```
 
@@ -24,7 +25,7 @@ Next we create a GCP STS Token generator:
 
 ```
   tg = Cauthl::Gcp::StsToken.new(
-    idp: otg, 
+    token_source: tg,
     pool: "//iam.googleapis.com/projects/PROJECT_ID/locations/global/workloadIdentityPools/POOL_NAME/providers/PROVIDER_NAME
   )
 ```
@@ -39,6 +40,6 @@ Then create the federated token generator:
 You can then use the token generator as the GCP Service authorizer:
 
 ```
-    @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.authorization = ft
+  @service = Google::Apis::CalendarV3::CalendarService.new
+  @service.authorization = ft
 ```

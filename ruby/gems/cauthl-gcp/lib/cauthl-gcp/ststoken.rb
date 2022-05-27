@@ -3,8 +3,8 @@ require 'google-apis-sts_v1'
 module Cauthl
   module Gcp
     class StsToken
-      def initialize(idp:, pool:)
-        @idp = idp
+      def initialize(token_source:, pool:)
+        @token_source = token_source
         @pool = pool
         @s = Google::Apis::StsV1::CloudSecurityTokenService.new
         @token = {}
@@ -17,7 +17,7 @@ module Cauthl
             scope: "https://www.googleapis.com/auth/cloud-platform",
             grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
             requested_token_type: "urn:ietf:params:oauth:token-type:access_token",
-            subject_token: @idp.access_token,
+            subject_token: @token_source.token,
             subject_token_type: "urn:ietf:params:oauth:token-type:jwt")
 
           resp = @s.token(req)
