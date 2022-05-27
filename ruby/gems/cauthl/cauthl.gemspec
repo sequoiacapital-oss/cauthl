@@ -3,7 +3,7 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
-  spec.name          = "cauthl-okta"
+  spec.name          = "cauthl"
   spec.version       = File.read(File.expand_path('../../VERSION', __FILE__)).strip
   spec.authors       = ["Caleb Tennis"]
   spec.email         = ["ctennis@sequoiacap.com"]
