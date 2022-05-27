@@ -15,22 +15,22 @@ Create an okta OIDC application that uses the client_credentials flow. You will 
 
 You will also need an authorization server that defines at least a single custom scope.
 
-Create a token generator. One for Okta is available:
+Create a token generator. One reference once is available, or build your own:
 ```
-require 'cauthl-okta'
+require 'cauthl'
 
-idp = Cauthl::Okta::TokenGenerator.new(
+tg = Cauthl::TokenGenerator.new(
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
   token_credentials_uri: OKTA_TOKEN_URL,
-  scopes: []
+  scope: []
   )
 ```
 
 Then, initalize the credentials:
 ```
   creds = AssumeRoleOIDCClientCredentials.new(
-    idp: idp
+    token_source: tg
     role_arn: 'arn',
     role_session_name: "session-name"
   )
