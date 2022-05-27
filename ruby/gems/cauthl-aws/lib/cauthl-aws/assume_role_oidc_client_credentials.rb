@@ -4,7 +4,7 @@ require 'aws-sdk-core'
 
 #
 #     role_credentials = Cauthl::Aws::AssumeRoleOIDCClientCredentials.new(
-#       idp: Cauthl::OktaTokenGenerator.new(...) 
+#       token_source: Cauthl::TokenGenerator.new(...) 
 #       role_arn: "arn:aws:...."
 #       role_session_name: "session-name"
 #       ...
@@ -17,12 +17,12 @@ module Cauthl
     class AssumeRoleOIDCClientCredentials < ::Aws::AssumeRoleWebIdentityCredentials
 
       def initialize(options = {})
-        @idp = options.delete(:idp)
+        @token_source = options.delete(:token_source)
         super
       end
 
       def inspect
-        "#<#{self.class.name} client_id=#{@idp.client.client_id}>"
+        "#<#{self.class.name} client_id=#{@token_source.client.client_id}>"
       end
 
       private
@@ -33,7 +33,7 @@ module Cauthl
       end
 
       def _get_token
-        @idp.access_token
+        @token_source.token
       end
 
     end

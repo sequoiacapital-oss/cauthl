@@ -69,11 +69,11 @@ module Cauthl
         allow(SecureRandom).to receive(:uuid).and_return(uuid)
         allow(client).to receive(:assume_role_with_web_identity).and_return(resp)
         stub_request(:post, token_url).to_return(status: 200, body: resp_body)
-        @idp = double
+        @token_source = double
       end
 
       it 'properly creates an STS client with assume_role_with_web_identity' do
-        allow(@idp).to receive(:access_token).and_return(access_token)
+        allow(@token_source).to receive(:token).and_return(access_token)
 
         expect(client).to receive(:assume_role_with_web_identity).with({
           role_arn: 'arn',
@@ -82,7 +82,7 @@ module Cauthl
         })
         AssumeRoleOIDCClientCredentials.new(
           role_arn: 'arn',
-          idp: @idp,
+          token_source: @token_source,
           role_session_name: "session-name"
         )
       end
@@ -93,12 +93,12 @@ module Cauthl
         end
 
         it 'raises an exception' do
-          allow(@idp).to receive(:access_token).and_raise(StandardError)
+          allow(@token_source).to receive(:access_token).and_raise(StandardError)
 
           expect { 
             Aws::AssumeRoleOIDCClientCredentials.new(
             role_arn: 'arn',
-            idp: @idp,
+            token_source: @token_source,
             role_session_name: "session-name"
           )
           }.to raise_error(Exception)

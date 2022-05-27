@@ -13,8 +13,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/sequoiacapital/cauthl"
 
   spec.metadata = {
-    'source_code_uri' => 'https://github.com/sequoiacapital/cauthl',
-    'changelog_uri'   => 'https://github.com/sequoiacapital/cauthl'
+    'source_code_uri' => 'https://github.com/sequoiacapital-oss/cauthl',
+    'changelog_uri'   => 'https://github.com/sequoiacapital-oss/cauthl'
   }
 
   spec.files         = Dir['lib/**/*.rb']
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "aws-sdk-core", "~> 3.0"
 
-  spec.add_development_dependency "bundler", "~> 2.1"
+  spec.add_development_dependency "bundler", "~> 2.3"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec-mocks", "~> 3.0"
