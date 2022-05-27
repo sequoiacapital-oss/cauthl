@@ -1,1 +1,0 @@
-require 'cauthl-okta/okta'
