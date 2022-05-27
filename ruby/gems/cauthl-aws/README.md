@@ -19,7 +19,7 @@ Create a token generator. One reference once is available, or build your own:
 ```
 require 'cauthl'
 
-tg = Cauthl::TokenGenerator.new(
+tg = Cauthl::AccessTokenGenerator.new(
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
   token_credentials_uri: OKTA_TOKEN_URL,
