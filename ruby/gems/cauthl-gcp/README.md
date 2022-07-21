@@ -33,7 +33,7 @@ Next we create a GCP STS Token generator:
 Then create the federated token generator:
 ```
   ft = Cauthl::Gcp::FederatedToken.new(tg, 
-    service_account: "service-account-name@service-account-project.iam.gserviceaccount.com, 
+    service_account: "service-account-name@service-account-project.iam.gserviceaccount.com", 
     scopes: ["https://www.googleapis.com/auth/calendar"])  # This is a sample scope, based on what the service account will need to do
 ```
 
@@ -43,3 +43,10 @@ You can then use the token generator as the GCP Service authorizer:
   @service = Google::Apis::CalendarV3::CalendarService.new
   @service.authorization = ft
 ```
+
+If you need to access Google Workspace via domain wide delegation, then you'll need an additional step of impersonatng a user
+```
+  it = Cauthl::Gcp::ImpersonatedToken.new(ft,
+    service_account:  "service-account-name@service-account-project.iam.gserviceaccount.com",
+    impersonated_user: "youruser@yourdomain.com",
+    scopes: ["https://www.googleapis.com/auth/calendar"])

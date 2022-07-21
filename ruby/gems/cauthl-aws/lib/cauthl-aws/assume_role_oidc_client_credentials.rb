@@ -4,7 +4,7 @@ require 'aws-sdk-core'
 
 #
 #     role_credentials = Cauthl::Aws::AssumeRoleOIDCClientCredentials.new(
-#       token_source: Cauthl::TokenGenerator.new(...) 
+#       token_source: Cauthl::AccessTokenGenerator.new(...) 
 #       role_arn: "arn:aws:...."
 #       role_session_name: "session-name"
 #       ...

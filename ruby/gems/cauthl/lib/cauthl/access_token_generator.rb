@@ -17,18 +17,23 @@ module Cauthl
       )
       @client.grant_type = "client_credentials"
       
-      @first_time = true
+      @force_fetch = true
     end
 
     def token
-      if @first_time
-        @first_time = false
+      if @force_fetch
+        @force_fetch = false
         @client.fetch_access_token!(scope: @scope)
-      elsif Time.now > @client.expires_at + FUZZY_REFRESH_SECONDS
+      elsif Time.now > @client.expires_at - FUZZY_REFRESH_SECONDS
         @client.fetch_access_token!(scope: @scope)
       end
 
       @client.access_token
+    end
+
+    def token!
+      @force_fetch = true
+      token
     end
   end
 end
