@@ -45,7 +45,7 @@ GEM
     multi_json (1.15.0)
     os (1.1.4)
     public_suffix (4.0.7)
-    rake (10.5.0)
+    rake (13.0.6)
     representable (3.1.1)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -77,12 +77,13 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   bundler (~> 2.1)
   cauthl-gcp!
   google-apis-calendar_v3
-  rake (~> 10.0)
+  rake (~> 13.0)
   rspec
   rspec-mocks (~> 3.0)
 
