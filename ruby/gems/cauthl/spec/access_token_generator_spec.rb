@@ -38,14 +38,14 @@ module Cauthl
       end
 
       it "fetches an access token only once" do
-        expect(@client).to receive(:fetch_access_token!).with(scope: scope).once
+        expect(@client).to receive(:fetch_access_token!).with(scope: scope, additional_parameters: {}).once
         subject.token
         subject.token
       end
 
       context "refreshes the token" do
         before(:each) do
-          expect(@client).to receive(:fetch_access_token!).with(scope: scope).twice
+          expect(@client).to receive(:fetch_access_token!).with(scope: scope, additional_parameters: {}).twice
         end
 
         it "always refreshes if the token! method is used" do
