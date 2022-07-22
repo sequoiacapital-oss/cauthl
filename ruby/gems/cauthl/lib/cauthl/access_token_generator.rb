@@ -47,9 +47,6 @@ module Cauthl
 
   class JWTAccessTokenGenerator < ATGCommon
 
-
-
-
     def initialize(client_id:, client_private_key:, token_credentials_uri:, scope: nil)
       super(scope: scope)
 
@@ -68,12 +65,16 @@ module Cauthl
     end
 
     def token
-      @claim["exp"] = Time.now.to_i + 3600
-
-      jws = JSON::JWT.new(@claim).sign(@pk, :RS256).to_s
-      @additional_parameters = {"client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer", "client_assertion": jws}
+      @additional_parameters = {"client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer", "client_assertion": build_assertion}
 
       super
-    end    
+    end
+
+    private
+
+    def build_assertion
+      claim = @claim.merge({exp: Time.now.to_i + 3600})
+      jws = JSON::JWT.new(claim).sign(@pk, :RS256).to_s
+    end
   end
 end
