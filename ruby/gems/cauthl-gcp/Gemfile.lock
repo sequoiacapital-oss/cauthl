@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cauthl-gcp (0.3.0)
+    cauthl-gcp (0.4.0)
       google-apis-iamcredentials_v1 (~> 0.10)
       google-apis-sts_v1 (~> 0.18)
 
