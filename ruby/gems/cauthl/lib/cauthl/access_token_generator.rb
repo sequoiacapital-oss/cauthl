@@ -6,6 +6,8 @@ module Cauthl
   class ATGCommon
     FUZZY_REFRESH_SECONDS = 120
 
+    attr_reader :client
+
     def initialize(scope:nil)
       @force_fetch = true
       @additional_parameters = {}
@@ -31,8 +33,6 @@ module Cauthl
 
   class AccessTokenGenerator < ATGCommon
 
-    attr_reader :client
-
     def initialize(client_id:, client_secret:, token_credentials_uri:, scope: nil)
       super(scope: scope)
 
@@ -46,6 +46,10 @@ module Cauthl
   end
 
   class JWTAccessTokenGenerator < ATGCommon
+
+
+
+
     def initialize(client_id:, client_private_key:, token_credentials_uri:, scope: nil)
       super(scope: scope)
 
