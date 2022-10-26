@@ -4,13 +4,15 @@ require 'json'
 module Cauthl
   module Gcp
     class ImpersonatedToken
-      def initialize(ft, service_account:, impersonated_user:, scopes: [])
+      DEFAULT_AUD = "https://oauth2.googleapis.com/token"
+
+      def initialize(ft, service_account:, impersonated_user:, scopes: [], aud: DEFAULT_AUD)
         @s = Google::Apis::IamcredentialsV1::IAMCredentialsService.new
         @s.authorization = ft
 
         @jwt = {}
         @jwt["iss"] = service_account
-        @jwt["aud"] = "https://oauth2.googleapis.com/token"
+        @jwt["aud"] = aud
         @jwt["scope"] = scopes.join(" ")
         @jwt["sub"] = impersonated_user
 
@@ -29,7 +31,17 @@ module Cauthl
       end
 
       def apply! a_hash, opts = {}
-        a_hash[Signet::OAuth2::AUTH_METADATA_KEY] = "Bearer #{@token}"
+        a_hash[Signet::OAuth2::AUTH_METADATA_KEY] = "Bearer #{token}"
+      end
+
+      def apply a_hash, opts = {}
+        a_copy = a_hash.clone
+        apply! a_copy, opts
+        a_copy
+      end
+
+      def updater_proc
+        proc { |a_hash, opts = {}| apply a_hash, opts }
       end
 
       private

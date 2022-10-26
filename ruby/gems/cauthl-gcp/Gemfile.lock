@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cauthl-gcp (0.4.0)
+    cauthl-gcp (0.5.0)
       google-apis-iamcredentials_v1 (~> 0.10)
       google-apis-sts_v1 (~> 0.18)
 
@@ -76,6 +76,7 @@ GEM
     webrick (1.7.0)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-20
   x86_64-linux
 
@@ -88,4 +89,4 @@ DEPENDENCIES
   rspec-mocks (~> 3.0)
 
 BUNDLED WITH
-   2.3.12
+   2.3.24

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cauthl-aws (0.4.0)
+    cauthl-aws (0.5.0)
       aws-sdk-core (~> 3.0)
 
 GEM
@@ -10,13 +10,13 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.609.0)
-    aws-sdk-core (3.131.3)
+    aws-partitions (1.651.0)
+    aws-sdk-core (3.165.1)
       aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.525.0)
-      aws-sigv4 (~> 1.1)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sigv4 (1.5.1)
+    aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     crack (0.4.5)
       rexml
@@ -45,6 +45,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-darwin-21
   x86_64-linux
 
@@ -57,4 +58,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.3.14
+   2.3.24
