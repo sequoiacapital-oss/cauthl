@@ -31,6 +31,16 @@ module Cauthl
       def apply! a_hash, opts = {}
         a_hash[Signet::OAuth2::AUTH_METADATA_KEY] = "Bearer #{token.access_token}"
       end
+
+      def apply a_hash, opts = {}
+        a_copy = a_hash.clone
+        apply! a_copy, opts
+        a_copy
+      end
+
+      def updater_proc
+        proc { |a_hash, opts = {}| apply a_hash, opts }
+      end
     end
   end
 end
