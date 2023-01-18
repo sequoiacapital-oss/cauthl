@@ -8,7 +8,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.4)
+    activesupport (7.0.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -30,7 +30,7 @@ GEM
       aes_key_wrap
       bindata
     jwt (2.5.0)
-    minitest (5.16.3)
+    minitest (5.17.0)
     multi_json (1.15.0)
     public_suffix (5.0.0)
     rake (13.0.6)
