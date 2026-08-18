@@ -2,18 +2,15 @@ module github.com/sequoiacapital-oss/cauthl/golang
 
 go 1.20
 
-replace golang.org/x/oauth2 => github.com/sequoiacapital-oss/oauth2-go v0.0.0-20230810141425-d5b05aca393d
-
 require (
 	cloud.google.com/go/iam v1.1.1
-	golang.org/x/oauth2 v0.11.0
+	golang.org/x/oauth2 v0.26.0
 	google.golang.org/api v0.126.0
 	google.golang.org/genproto v0.0.0-20230803162519-f966b187b2e5
 )
 
 require (
-	cloud.google.com/go/compute v1.23.0 // indirect
-	cloud.google.com/go/compute/metadata v0.2.3 // indirect
+	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
