@@ -16,8 +16,8 @@ module Cauthl
 
     def token
       if @force_fetch
-        @force_fetch = false
         @client.fetch_access_token!(scope: @scope, additional_parameters: @additional_parameters)
+        @force_fetch = false
       elsif Time.now > @client.expires_at - FUZZY_REFRESH_SECONDS
         @client.fetch_access_token!(scope: @scope, additional_parameters: @additional_parameters)
       end
